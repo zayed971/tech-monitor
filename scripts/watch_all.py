@@ -31,6 +31,7 @@ JOBS = [
                            'opensooq_ae', '--source', 'opensooq_sa', '--source', 'haraj_sa', '--max-items', '900'], False),
     ('us-stores', 4, ['scripts/run_us.py', '--source', 'us_wisetek', '--source', 'us_techmikeny', '--source',
                       'us_pcliquidations', '--source', 'us_reddit_hardwareswap', '--max-items', '800'], True),
+    ('burner-gulf-shops', 6, ['scripts/run_burner_gulf.py'], True),
     ('burner-us-shops', 8, ['scripts/run_burner_us.py'], True),
     ('facebook-EG', 8, ['scripts/run_facebook.py', '--zone', 'EG', '--city', 'mansoura', '--scrolls', '2', '--delay', '8'], True),
     ('facebook-UAE', 8, ['scripts/run_facebook.py', '--zone', 'UAE', '--city', 'dubai', '--scrolls', '2', '--delay', '8'], True),

@@ -1,0 +1,55 @@
+{
+ "hits": [
+  {
+   "name": "Lenovo LOQ Essential 15IRX11 Intel Core i5-13450HX 16GB RAM 512GB SSDNVIDIA GeForce RTX 5050 8GB Graphics 15.6inch FHD Windows 11 Home GamingLaptop - Luna Grey [LOQ-83SC000AAX]",
+   "url_path": "lenovo-loq-essential-15irx11-intel-core-i5-13450hx-16gb-ram-512gb-ssd-nvidia-geforce-rtx-5050-8gb-graphics-15-6inch-fhd-windows-11-home-gaming-laptop-luna-grey-loq-83sc000aax.html",
+   "in_stock": 1,
+   "sku": "LOQ-83SC000AAX",
+   "price": {
+    "AED": {
+     "default": 4599,
+     "default_formated": "AED4,599.00",
+     "special_from_date": "",
+     "special_to_date": "",
+     "discount_formatted": "AED100.00",
+     "cost_formatted": "AED4,699.00"
+    }
+   },
+   "cost": 4699
+  },
+  {
+   "name": "Lenovo LOQ 15 AMD Ryzen 7 170 16GB RAM 512GB SSD NVIDIA GeForce RTX 4050 6GB 15.6-Inch Full HD 144Hz Windows 11 Home Gaming Laptop – Luna Grey (83S0008RAX)",
+   "url_path": "r7-170-16-512-4050-6g-15-6-w11h.html",
+   "in_stock": 1,
+   "sku": "LOQ-83S0008RAX",
+   "price": {
+    "AED": {
+     "default": 3939,
+     "default_formated": "AED3,939.00",
+     "special_from_date": "",
+     "special_to_date": "",
+     "discount_formatted": "AED560.00",
+     "cost_formatted": "AED4,499.00"
+    }
+   },
+   "cost": 4499
+  },
+  {
+   "name": "MSI Cyborg 15 A2RVE Intel Core 7 240H 16GB RAM 512GB SSD NVIDIA GeForce RTX 4050 6GB Graphics 15.6 inch FHD Windows 11 Home Plus Gaming Laptop - Translucent Black (Cyborg15-9S7-15K111-2030)",
+   "url_path": "msi-cyborg-15-a2rve-intel-core-7-240h-16gb-ram-512gb-ssd-nvidia-geforce-rtx-4050-6gb-graphics-15-6-inch-fhd-windows-11-home-plus-gaming-laptop-translucent-black-cyborg15-9s7-15k111-2030.html",
+   "in_stock": 1,
+   "sku": "Cyborg15-9S7-15K111-2030",
+   "price": {
+    "AED": {
+     "default": 4299,
+     "default_formated": "AED4,299.00",
+     "special_from_date": "",
+     "special_to_date": "",
+     "discount_formatted": "AED0.00",
+     "cost_formatted": "AED4,299.00"
+    }
+   },
+   "cost": 4299
+  }
+ ]
+}

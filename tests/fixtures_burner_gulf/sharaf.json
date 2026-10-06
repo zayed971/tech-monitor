@@ -1,0 +1,54 @@
+{
+ "results": [
+  {
+   "index": "products_index",
+   "hits": [
+    {
+     "post_title": "Asus TUF A15 Gaming (2026) Laptop - AMD Ryzen 7-8845HS / 15.6inch FHD / 512GB SSD / 16GB RAM / 4GB NVIDIA GeForce RTX 3050 Graphics / Windows 11 Home / English & Arabic Keyboard / Graphite Black / Middle East Version - [FA506NCG-HN16GW]",
+     "price": 4199,
+     "permalink": "https://uae.sharafdg.com/product/asus-fa506ncg-hn16gw-r7-16-512-4-15-6-bk/",
+     "in_stock": 1,
+     "main_sku": "S600979364",
+     "sku": "1403590",
+     "promotion_offer_json": [
+      {
+       "regular_price": "4299.00",
+       "sale_price": "4199",
+       "is_default": 1
+      }
+     ]
+    },
+    {
+     "post_title": "Acer Nitro V 15 Gaming (2023) - Laptop - AMD Ryzen 7-7735HS / 15.6inch FHD / 512GB SSD / 16GB RAM / 6GB NVIDIA GeForce RTX 3050 Graphics / Windows 11 / English Keyboard / Black / International Version - [ANV15-41-R45W]",
+     "price": 3499,
+     "permalink": "https://uae.sharafdg.com/product/acer-nitro-v-15-gaming-2023-laptop-amd-ryzen-7-7735hs-15-6inch-fhd-512gb-ssd-16gb-ram-6gb-nvidia-geforce-rtx-3050-graphics-windows-11-english-keyboard-black-international-version/",
+     "in_stock": 1,
+     "main_sku": "S600976770",
+     "sku": "1401771",
+     "promotion_offer_json": [
+      {
+       "regular_price": "3999.00",
+       "sale_price": "3499",
+       "is_default": 1
+      }
+     ]
+    },
+    {
+     "post_title": "Lenovo LOQ 15IAX9 Gaming (2022) Laptop - 12th Gen / Intel Core i5-12600HX / 15.6inch FHD / 1TB SSD / 16GB RAM / 6GB NVIDIA GeForce RTX 3050 Graphics / Windows 11 Home / English &amp; Arabic Keyboard / Luna Grey / Middle East Version - [83GS00V4AX]",
+     "price": 3750,
+     "permalink": "https://uae.sharafdg.com/product/lenovo-loq-15iax9-gaming-2022-laptop-12th-gen-intel-core-i5-12600hx-15-6inch-fhd-1tb-ssd-16gb-ram-6gb-nvidia-geforce-rtx-3050-graphics-windows-11-home-english-arabic-keyboard-lun/",
+     "in_stock": 1,
+     "main_sku": "S600975398",
+     "sku": "1400663",
+     "promotion_offer_json": [
+      {
+       "regular_price": "3999.00",
+       "sale_price": "3750",
+       "is_default": 1
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

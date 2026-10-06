@@ -1,0 +1,45 @@
+{
+ "response": {
+  "products": [
+   {
+    "nameEn": "HP Laptop Gaming  Intel Core i5, 8GB, 512GB, RTX 3050, 15.6 FHD, Mica Silver",
+    "productUrl": "https://www.extra.com/en-sa/computer/laptops/gaming-laptops/hp-laptop-gaming-intel-core-i5-8gb-512gb-rtx-3050-15-6-fhd-mica-silver/p/100511950",
+    "sellingPrice": 4399,
+    "price": 4399,
+    "wasPrice": 4999,
+    "currency": "SAR",
+    "inStockFlag": "true",
+    "available": "true",
+    "productCode": "100511950",
+    "eligibleForTabby": "true",
+    "eligibleForTamara": "true"
+   },
+   {
+    "nameEn": "HP Laptop Gaming  AMD Ryzen 9, 16GB, 1TB, RTX 5070 8GB, 15.3 WQXGA, Shadow Black",
+    "productUrl": "https://www.extra.com/en-sa/computer/laptops/gaming-laptops/hp-laptop-gaming-amd-ryzen-9-16gb-1tb-rtx-5070-8gb-15-3-wqxga-shadow-black/p/100511953",
+    "sellingPrice": 9499,
+    "price": 9499,
+    "wasPrice": 9499,
+    "currency": "SAR",
+    "inStockFlag": "true",
+    "available": "true",
+    "productCode": "100511953",
+    "eligibleForTabby": "true",
+    "eligibleForTamara": "true"
+   },
+   {
+    "nameEn": "HP Laptop Gaming  Intel Core 7, 16GB , 1TB, RTX 5060 8GB, 15 WQXGA, Shadow Black",
+    "productUrl": "https://www.extra.com/en-sa/computer/laptops/gaming-laptops/hp-laptop-gaming-intel-core-7-16gb-1tb-rtx-5060-8gb-15-wqxga-shadow-black/p/100511952",
+    "sellingPrice": 8074,
+    "price": 8074,
+    "wasPrice": 8499,
+    "currency": "SAR",
+    "inStockFlag": "true",
+    "available": "true",
+    "productCode": "100511952",
+    "eligibleForTabby": "true",
+    "eligibleForTamara": "true"
+   }
+  ]
+ }
+}

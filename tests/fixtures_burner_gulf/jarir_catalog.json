@@ -1,0 +1,51 @@
+{
+ "success": true,
+ "data": {
+  "hits": {
+   "hits": [
+    {
+     "_source": {
+      "url_path": "msi-crosshair-16-laptops-678218.html",
+      "name": "MSI Crosshair 16 Gaming Laptop, 16\", AMD Ryzen 9, 16 GB RAM, 1 TB SSD, Windows 11, NVIDIA GeForce 8 GB",
+      "jarir_final_price": 6499,
+      "price": 8999,
+      "GTM_sku": "678218",
+      "sku": "678218",
+      "cod_enable": 1,
+      "installment_enable": 1,
+      "tabby_enable": 0,
+      "tamara_enable": 0
+     }
+    },
+    {
+     "_source": {
+      "url_path": "lenovo-loq-laptops-682935.html",
+      "name": "Lenovo LOQ Gaming Laptop, 15.6\", AMD Ryzen 5, 16 GB RAM, 512 GB SSD, Windows 11 Home, NVIDIA GeForce 6 GB",
+      "jarir_final_price": 4399,
+      "price": 5399,
+      "GTM_sku": "682935",
+      "sku": "682935",
+      "cod_enable": 1,
+      "installment_enable": 1,
+      "tabby_enable": 1,
+      "tamara_enable": 1
+     }
+    },
+    {
+     "_source": {
+      "url_path": "lenovo-loq-laptops-682933.html",
+      "name": "Lenovo LOQ Gaming Laptop, AI, 15.3\", AMD Ryzen 7, 16 GB RAM, 512 GB SSD, Windows 11 Home, NVIDIA GeForce 8 GB",
+      "jarir_final_price": 5299,
+      "price": 5999,
+      "GTM_sku": "682933",
+      "sku": "682933",
+      "cod_enable": 1,
+      "installment_enable": 1,
+      "tabby_enable": 1,
+      "tamara_enable": 1
+     }
+    }
+   ]
+  }
+ }
+}

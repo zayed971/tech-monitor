@@ -15,3 +15,13 @@
 
 ## D-005 Facebook: Zayed signs up himself  [ACTIVE]
 - Date: 2026-10-06. Zayed offered "create one ... or open it for me to do it". HELM opens the sign-up page in the burner Chrome and Zayed completes it. House rule: agents do not create accounts, type passwords or solve CAPTCHAs.
+
+## D-006 Routes to Mansoura: two travelers  [ACTIVE]
+- Date: 2026-10-07. Decided by: Zayed. Source: "he will come from either sauid or uae , i have two . for us , i will delver it to uae then the uae traveler will get it to me"
+- Decision: UAE items are bought in the UAE and carried by the UAE traveler; Saudi items are bought in Saudi Arabia and carried by the Saudi traveler; US items are ordered to a UAE address, then carried by the UAE traveler. Landed cost stays "unconfirmed" until real quotes exist (US-to-UAE shipping, UAE duty, Egypt customs/baggage are unknown). Item prices are converted at the stored USD rate (AED 3.6725 and SAR 3.75 per USD are pegs).
+
+## D-007 Sites that block plain HTTP or disallow robots are not worked around  [ACTIVE]
+- Date: 2026-10-07. Decided by: HELM (house rule 7). Noon, Jumbo, eXtra, eBay, B&H, Back Market and others disallow search in robots.txt; Microless, Newegg, Micro Center, Swappa return 403; Dubizzle sits behind Imperva. They are recorded as blocked with evidence. Facebook Marketplace and Reddit are read only through the burner Chrome, slowly, because Zayed asked for that lane (D-005). Zayed can decide to read robots-disallowed retail pages through the burner too; that is his call, not made yet.
+
+## D-008 Facebook burner account is signed in; pacing  [ACTIVE]
+- Date: 2026-10-07. Zayed signed up himself. Marketplace is read at most once per 8 hours per zone (2 scrolls, 8 s pauses, about 11 page loads), stopping at any login or checkpoint.

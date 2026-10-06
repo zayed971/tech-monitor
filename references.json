@@ -1,0 +1,37 @@
+{
+  "products": {
+    "83JE00U1AX": {
+      "source_url": "https://psref.lenovo.com/syspool/Sys/PDF/LOQ/LOQ_15IRX10/LOQ_15IRX10_Spec.PDF",
+      "checked_at": "2026-10-05T23:42:00+00:00",
+      "specs": {
+        "cpu_cores": 20,
+        "cpu_threads": 28,
+        "cpu_boost_ghz": 5.5,
+        "gpu_tgp_w": 100,
+        "ram_slots": 2,
+        "ram_max_gb": 32
+      },
+      "notes": "Platform facts matching this SKU CPU/GPU; installed RAM module layout remains unverified."
+    },
+    "83JC00H1ED": {
+      "source_url": "https://psref.lenovo.com/syspool/Sys/PDF/LOQ/LOQ_15ARP9/LOQ_15ARP9_Spec.PDF",
+      "checked_at": "2026-10-05T23:54:49.979571+00:00",
+      "specs": {
+        "cpu_cores": 8,
+        "cpu_threads": 16,
+        "cpu_boost_ghz": 4.5,
+        "ram_slots": 2,
+        "ram_max_gb": 32
+      },
+      "notes": "Platform facts matching the listed CPU. Factory 12GB module layout remains unknown. GPU power depends on charger: 105W with 170W adapter, up to 115W with 230W adapter."
+    }
+  },
+  "fx": {
+    "usd_egp": 52.24751,
+    "source_url": "https://open.er-api.com/v6/latest/USD",
+    "checked_at": "2026-10-05T00:02:31+00:00",
+    "observed_at": "2026-10-05T20:46:39.926717+00:00",
+    "provider": "ExchangeRate-API open access"
+  },
+  "notes": "Only add exact manufacturer part-number references with a source URL and ISO checked_at. Detailed unknown specs and benchmark/import metrics remain null until verified data is supplied. Never infer warranty from ED alone."
+}

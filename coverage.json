@@ -1,0 +1,21 @@
+{
+  "enabled": "See sources.json and data/source-status.json for live results; each run is bounded by page/detail limits.",
+  "eg-pc.com": "Redirects to Qarenly; collected once through Qarenly.",
+  "Smart Technology": "Pending an unambiguous store URL; do not guess which business this name refers to.",
+  "btech.com": "Comparison-only collection; not eligible for buying alerts.",
+  "ubuy.com.eg": "Import baseline deferred; do not compare imported prices without shipping/taxes and exchange-rate evidence.",
+  "reference_specs": "The schema and exact-MPN reference join are implemented. Supply verified manufacturer/reference facts in references.json; missing facts remain null. Automatic crawling of all reference databases is deferred.",
+  "market_baselines": "Exchange-rate import is supported through the fx command. RAM indices and PCPartPicker price history are deferred.",
+  "reputation": "Deferred. No store risk score is fabricated from missing review data. Official Reddit/YouTube/Places APIs require their own credentials.",
+  "used_lifetimes": "Not implemented in this MVP while Dubizzle is blocked. Disappeared listings cannot establish actual sale price.",
+  "never_collect": [
+    "Dubizzle seller names, profile data and phone numbers",
+    "Google Maps reviews by scraping",
+    "Private Facebook groups, seller profiles, contacts, messages and credentials"
+  ],
+  "marketplaces": "Amazon/Noon receive a small daily public sample; other marketplaces use discovered hardware URLs. Consult hardware/coverage-and-gaps.json for actual results; do not mistake a reachable homepage for product coverage.",
+  "market_boundary": "Only configured online sources and their public feed/sitemap/search inventories. Unknown stores, offline stock, private groups and inventories absent from public pages remain outside measured coverage.",
+  "unsupported_fields": "Unknown RAM capacity, DDR type, form factor, module count, warranty, shipping, benchmarks and PSU quality remain explicit gaps. No values are invented.",
+  "accessories_and_tech": "Accessories, peripherals, audio, gaming/VR, creator equipment, maker tools, smart-home gear, wearables, tablets and e-readers from configured public sources. Specialist stores not in sources.json, offline inventories, opaque marketplace titles/URLs and missing compatibility remain outside measured coverage. No claim of every accessory in Egypt.",
+  "facebook_marketplace": "Public Egypt HTTP probe enabled at user request. Live cloud test on 2026-10-06 collected zero listings: robots.txt disallows Marketplace. One access failure stops the probe; retry no more than daily. No authenticated Facebook session or connection to the owner's PC exists here. Local Chrome collection is a separate, owner-operated option; visible candidates have unconfirmed availability."
+}

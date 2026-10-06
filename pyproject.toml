@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "egypt-deals"
+version = "0.1.0"
+description = "Polite Egyptian computer price collector with history and Telegram alerts"
+requires-python = ">=3.11"
+dependencies = ["httpx>=0.27,<1", "beautifulsoup4>=4.12,<5"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10"]
+browser = ["playwright>=1.50,<2"]
+
+[project.scripts]
+egypt-deals = "egypt_deals.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["egypt_deals*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

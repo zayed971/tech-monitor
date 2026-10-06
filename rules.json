@@ -1,0 +1,103 @@
+{
+  "thresholds": [
+    {
+      "id": "loq-14700hx-5060",
+      "label": "LOQ 15IRX10 i7-14700HX / RTX 5060",
+      "max_egp": 70000,
+      "category": "laptop",
+      "title_regex": "(?=.*\\bLOQ\\b)(?=.*\\b15IRX10\\b)",
+      "specs": {
+        "cpu_model": "I7-14700HX",
+        "gpu_model": "RTX 5060"
+      }
+    },
+    {
+      "id": "used-3060-12",
+      "label": "Used RTX 3060 12GB",
+      "max_egp": 13000,
+      "category": "gpu",
+      "condition": "used",
+      "specs": {
+        "gpu_model": "RTX 3060",
+        "gpu_vram_gb": 12
+      }
+    },
+    {
+      "id": "ddr5-laptop-16",
+      "label": "16GB DDR5 laptop stick",
+      "max_egp": 10000,
+      "category": "ram",
+      "specs": {
+        "ram_type": "DDR5",
+        "ram_gb": 16,
+        "ram_form_factor": "SODIMM",
+        "ram_modules": 1
+      }
+    },
+    {
+      "id": "ddr5-desktop-32",
+      "label": "32GB DDR5 desktop kit",
+      "max_egp": 21000,
+      "category": "ram",
+      "specs": {
+        "ram_type": "DDR5",
+        "ram_gb": 32,
+        "ram_form_factor": "DIMM",
+        "ram_modules": 2
+      }
+    },
+    {
+      "id": "used-pc-5600x-3060",
+      "label": "Used 5600X / RTX 3060 12GB full PC",
+      "max_egp": 32000,
+      "category": "pc",
+      "condition": "used",
+      "title_regex": "\\b5600X\\b",
+      "specs": {
+        "gpu_model": "RTX 3060",
+        "gpu_vram_gb": 12
+      }
+    }
+  ],
+  "drop": {
+    "id": "drop-24h",
+    "label": "Tracked item fell at least 8% in 24 hours",
+    "min_pct": 8,
+    "hours": 24
+  },
+  "laptop_watch": {
+    "max_egp": 70000,
+    "description": "Watch every eligible collected laptop at or below this price for the 8%/24h drop rule; existing model-specific threshold alerts still apply."
+  },
+  "hardware_watch": {
+    "max_egp": 70000,
+    "categories": [
+      "accessory",
+      "audio",
+      "bundle",
+      "case",
+      "cooler",
+      "cpu",
+      "creator",
+      "ereader",
+      "gaming",
+      "gpu",
+      "hdd",
+      "laptop",
+      "maker",
+      "monitor",
+      "motherboard",
+      "network",
+      "pc",
+      "peripheral",
+      "psu",
+      "ram",
+      "smart_home",
+      "ssd",
+      "tablet",
+      "ups",
+      "wearable"
+    ],
+    "description": "8%/24h drops for all eligible collected hardware below the buying budget; collection itself has no price ceiling."
+  }
+}

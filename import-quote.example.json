@@ -1,0 +1,13 @@
+{
+  "source_url": "https://www.amazon.com/dp/EXACT_ASIN",
+  "exact_part_number": null,
+  "destination": "Your city/postcode in Egypt",
+  "item_usd": null,
+  "shipping_usd": null,
+  "import_charges_usd": null,
+  "usd_egp": 52.24751,
+  "card_fee_pct": 0,
+  "extra_egp": 0,
+  "local_comparable_price_egp": null,
+  "notes": "Copy the final checkout amounts; zero card fee is only an explicit assumption. Do not include card, account or address details. Do not add a second VAT charge if it is already in import charges."
+}

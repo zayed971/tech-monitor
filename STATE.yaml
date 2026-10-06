@@ -1,0 +1,18 @@
+# Numbers and status only. Every value says how it was checked. Updated 2026-10-06 23:00 +0300 by HELM.
+project: tech_monitor
+status: WARM            # must match C:\PROJECTS\PROJECTS.yaml
+live: none
+last_result:
+  what: "copied from the Desktop backup; database hash identical; 16,814 files"
+  checked: "Get-FileHash + file count, 2026-10-06 22:58"
+counts:
+  listings: 58242       # data/deals.sqlite3 snapshot from the cloud, 2026-10-06 14:43 UTC
+  observations: 122252
+  sources_egypt: 23     # sources.json
+  zones_covered: [EG]
+  zones_wanted: [EG, UAE, KSA, US]
+budget_egp_device: 70000        # extra monitor (screen) excluded
+hermes_cap_usd: 2               # DECISIONS D-004
+alerts: off
+git:
+  remote: none          # gh repo only after Zayed says public/private

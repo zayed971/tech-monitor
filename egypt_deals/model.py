@@ -229,6 +229,14 @@ class Listing:
     specs: dict = field(default_factory=dict)
     spec_sources: dict = field(default_factory=dict)
     quality_issues: list = field(default_factory=list)
+    # Zone layer (tech_monitor, 2026-10-07). Old rows have none of these and read back as Egypt.
+    zone: str = "EG"                      # EG, UAE, KSA or US: where the item is bought
+    country: str | None = None
+    price_local: float | None = None      # price in `currency` as shown; price_egp is the converted item price only
+    payments: list = field(default_factory=list)   # paypal, cod, card, installments, bank_transfer, instapay ...
+    route: str | None = None              # how it reaches Mansoura
+    landed_egp: float | None = None       # only when a real quote exists; never a guess, never zero for "unknown"
+    landed_status: str = "domestic"       # domestic | unconfirmed (reason in `route`) | quoted
 
     def finish(self):
         self.raw_title = normalized(self.raw_title)

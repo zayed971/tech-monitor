@@ -42,6 +42,16 @@ def gpu_of(listing):
     return model if title_confirms(model, listing.raw_title) else None
 
 
+AD_SOURCES = ('haraj', 'opensooq', 'facebook', 'dubizzle', 'us_reddit', 'swappa', 'olx')
+
+
+def stock_label(listing):
+    """Classified ads and Marketplace adverts never prove stock; their own 'in stock' flag is not shown as fact."""
+    if listing.source_kind == 'used' or str(listing.source).startswith(AD_SOURCES):
+        return 'ad listed (unconfirmed)'
+    return listing.stock
+
+
 def age_hours(listing):
     t = date_value(listing.observed_at)
     return None if t is None else round((datetime.now(timezone.utc) - t).total_seconds() / 3600, 1)
@@ -51,7 +61,7 @@ def row(listing):
     s = listing.specs or {}
     return {
         'zone': listing.zone, 'store': listing.store, 'title': listing.raw_title[:110], 'category': listing.category,
-        'condition': listing.condition, 'stock': listing.stock,
+        'condition': listing.condition, 'stock': stock_label(listing),
         'price_local': listing.price_local if listing.zone != 'EG' else listing.price_egp,
         'currency': listing.currency, 'price_egp': listing.price_egp, 'landed': listing.landed_status,
         'payments': ','.join(listing.payments) or 'unknown', 'route': listing.route or '',
@@ -114,7 +124,7 @@ def pick(listings, kind, budget, zones=None, conditions=None, limit=15, max_age_
     # In-stock before unknown, then best value (or cheapest per capacity), then price.
     def order(r):
         value = r['value'] if r['value'] is not None else (-(r['price_egp'] / (r['score'] or 1)))
-        return (r['stock'] != 'in_stock', -value, r['price_egp'])
+        return (r['stock'] not in ('in_stock', 'ad listed (unconfirmed)'), r['stock'] != 'in_stock', -value, r['price_egp'])
     best = {}
     for r in sorted(out, key=order):
         key = (r['zone'], r['store'], r['title'][:60].lower())

@@ -25,3 +25,7 @@
 
 ## D-008 Facebook burner account is signed in; pacing  [ACTIVE]
 - Date: 2026-10-07. Zayed signed up himself. Marketplace is read at most once per 8 hours per zone (2 scrolls, 8 s pauses, about 11 page loads), stopping at any login or checkpoint.
+
+## D-009 Robots-disallowed and JavaScript shops are read through the burner Chrome  [ACTIVE, supersedes the "not decided" part of D-007]
+- Date: 2026-10-07. Decided by: Zayed. Source: "yes all of them into the bruner chrome idc. fiunish the job and let the monitor keep going"
+- Decision: Noon, Jumbo, eXtra, Jarir, Sharaf DG, Microless, Dubizzle, eBay, B&H, Back Market, Newegg, Micro Center, Swappa, Amazon.com may be read by driving the burner Chrome like a person: slow (6 s or more between page loads per site), read only, own tab, never logging in, never solving a CAPTCHA or bypassing a challenge. A challenge, CAPTCHA, "unusual traffic" or block page ends that site's run and is recorded.

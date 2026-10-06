@@ -1,20 +1,21 @@
 # Queue (tech_monitor)
 ## NOW (max 3)
-- Always-on collector `scripts/watch_all.py` is RUNNING (started 2026-10-07 01:10, no alerts). Log: data/watch_all.log. Done when it has completed one full cycle of every lane without errors.
-- Egyptian blocked sources: a worker is fixing adapters.py and sources.json; verify with one Egyptian pass, then commit.
-- Payments: Hermes read 37 of 58 stores but only 9 gave a payment quote (data/stores_verified.csv); second pass with more pages per store.
+- Verify the collector is still running and the two new burner jobs finished at least once (RUNBOOK, Always-on collector). Done when data\watch_all.log shows END for burner-gulf-shops and burner-us-shops, then re-count listings and read which burner sites gave rows vs "wall".
+- "What to buy": Zayed may buy a local PC soon. When he asks, run top_findings (RUNBOOK) for pc, gpu, ram, ssd, cpu, motherboard, psu in EG, then laptops; answer in plain words with the source, time and stock of every price.
+- Spec precision: Codex's spec reader mislabels some GPUs (an AMD card read as an RTX 5090). Fix the reader (egypt_deals/model.py) and add a test; findings already require the model in the title.
 
 ## NEXT
-- Burner browser lane for JS-drawn sites that robots allow (Sharaf DG, Jarir) and for Dubizzle UAE/KSA, OpenSooq detail pages.
-- Zayed's call: read robots-disallowed retail search (Noon, Jumbo, eXtra, eBay, B&H) through the burner anyway? (D-007)
-- Real landed-cost quotes: US store to a UAE address (shipping, duty), UAE and Saudi carry (customs/baggage at Cairo).
-- Spec precision: Codex's spec reader mislabels some GPUs (AMD card read as RTX 5090); findings now require the model in the title; fix the reader itself.
+- Payments: Hermes read 37 of 58 stores but only 9 gave a payment quote (data/stores_verified.csv); payment methods are mostly unknown. Second pass with more pages per store (cap in D-004).
+- Real landed-cost quotes: US store to a UAE address (shipping, duty), UAE and Saudi carry (customs/baggage at Cairo). Needs Zayed or the travelers; until then landed stays "unconfirmed".
+- Weak Egyptian sources: jumia (63 rows), tv-it (77), facebook-public (0). Noon plain adapter (1 row) is now covered by the burner module.
+- Walled sites: Microless (Gulf burner), Newegg, Micro Center, Swappa (US burner). Watch whether walls change; never work around a challenge (D-009).
 - A PC-parts build checker (socket, DDR, PSU watts, total under 70,000 EGP).
 
 ## LATER
-- Windows scheduled task to start watch_all at logon; backup of data/deals.sqlite3 (336 MB+).
+- Windows scheduled task to start watch_all at logon (today it only runs while this laptop session lives; a reboot stops it); backup of data/deals.sqlite3 (385 MB).
 - Telegram stays OFF (D-002).
+- Tidy the untracked Telegram files and the Desktop backups only with Zayed's yes (nothing is deleted without it).
 
 ## WAITING ON ZAYED
-- Which items to look at first: ask for top findings any time (RUNBOOK).
-- Decision D-007 (robots-disallowed retail pages through the burner).
+- Whether a local PC gets bought tomorrow (then top findings for it).
+- Payment methods he can use (cards, PayPal, installments), and the real route cost from the travelers.

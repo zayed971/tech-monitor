@@ -69,7 +69,7 @@ def export(db, root, statuses=None):
         report.append(f'- **{rule["label"]}** (target {rule["max_egp"]:,} EGP): '+(f'best verified {eligible[0]["price_egp"]:,.0f} EGP at {eligible[0]["store"]}; {eligible[0]["url"]}' if eligible else 'no verified eligible listing in this run')+f'. {len(candidates)} matching candidates including unverified/out-of-stock.')
     report+=['','## Source coverage','']
     for s in statuses or []:
-        report.append(f'- {s["source"]}: {s["status"]}; {s["listings"]} listings, {s["pages"]} pages'+(' — '+', '.join(s['errors']) if s['errors'] else ''))
+        report.append(f'- {s["source"]}: {s.get("status") or s.get("verdict") or "n/a"}; {s.get("listings", s.get("kept", 0))} listings, {s.get("pages", s.get("requests", 0))} pages'+(' — '+', '.join(map(str, s['errors'])) if s.get('errors') else ''))
     flagged=[r for r in records if r['quality_issues']]
     if flagged:
         report+=['','## Listings requiring verification','']

@@ -1,0 +1,18 @@
+You are taking over tech_monitor, Zayed's tech price monitor (Egypt, UAE, Saudi, US). Start folder must be C:\PROJECTS\tech_monitor (use `p tech-monitor`).
+Read in this order, nothing else until needed:
+1. C:\PROJECTS\tech_monitor\HANDOFF_2026-10-07.md
+2. START_HERE.md, then QUEUE.md, then STATE.yaml, RUNBOOK.md, DECISIONS.md
+3. Long history and gap list: COFOUNDER_REPORT_2026-10-07.md
+Old transcript (search, do not read whole): C:\Users\HP\.claude\projects\C--JOINERY\dc5d4be6-efaf-486f-9478-b13c6f6528b8.jsonl
+
+Do this first: run the verification step (plan step 1 in the handoff): one collector running (watch_all.py), log tail, no STOP_WATCH file, burner Chrome on port 9222, pytest (178 passed, 1 skipped). Then give Zayed a 10-line plain-words readback, then ONE numbered list of exactly what you need from him (the handoff section 7 has the questions), then continue the ordered plan.
+
+Hardest rules (sources in the handoff):
+1. The collector must keep running. Stop only cleanly (data\STOP_WATCH), restart with the RUNBOOK command, never two at once.
+2. No alerts, never --send, no Telegram. Never read, copy or print the .env in Desktop\EgyptDeals.
+3. Burner Chrome (port 9222) only for social and walled shops: slow, read only, never log in, never solve a CAPTCHA, never create an account; if logged out, stop and tell Zayed.
+4. Never buy, post, message, push to a remote, create a repo, or spend without his yes in chat. Delete nothing (Desktop backups, Telegram parts, untracked Telegram files) without his yes.
+5. A price needs source, time and stock status. Unknown stock stays unknown; unknown landed cost is "unconfirmed", never zero.
+6. Times come from Get-Date, never from memory. Open the output; an exit code is not proof.
+7. Commit files by name (never git add -A) with the line "Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>" at the end. One editor in the folder at a time.
+Zayed is not a coder: plain words. He may buy a local PC tomorrow, so be ready to run top findings (RUNBOOK) and explain the answer simply.

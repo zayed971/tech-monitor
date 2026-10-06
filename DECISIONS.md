@@ -29,3 +29,9 @@
 ## D-009 Robots-disallowed and JavaScript shops are read through the burner Chrome  [ACTIVE, supersedes the "not decided" part of D-007]
 - Date: 2026-10-07. Decided by: Zayed. Source: "yes all of them into the bruner chrome idc. fiunish the job and let the monitor keep going"
 - Decision: Noon, Jumbo, eXtra, Jarir, Sharaf DG, Microless, Dubizzle, eBay, B&H, Back Market, Newegg, Micro Center, Swappa, Amazon.com may be read by driving the burner Chrome like a person: slow (6 s or more between page loads per site), read only, own tab, never logging in, never solving a CAPTCHA or bypassing a challenge. A challenge, CAPTCHA, "unusual traffic" or block page ends that site's run and is recorded.
+
+## D-010 Close-up fixes: report tolerates rows without a status; the Telegram file-permission test is skipped on Windows  [ACTIVE]
+- Date: 2026-10-07. Decided by: HELM (small, safe, reversible; no rule of Zayed's touched).
+- Why: the `egypt-shops` job exited 1 at 02:10 with `KeyError: 'status'`. The UAE, Saudi and US collectors save source_runs rows without a `status` key, and the report step in `egypt_deals/cli.py` read it directly. Collected rows were safe, but the report files (data/report.md, listings.json) would not refresh. Fix: read the fields with defaults. Checked with `cli export` on a copy of the database (exit 0, report lists amazon_ae and us_wisetek).
+- The old "known failing" test `test_start_message_connects_and_enters_bounded_monitor` failed only on its last line, a Unix file-mode check (0600) that Windows cannot satisfy. It now runs that line only when not on Windows. Telegram stays off (D-002); nothing was sent.
+- Also: the collector was restarted at 02:12 so it loads the two burner jobs (burner-gulf-shops every 6 h, burner-us-shops every 8 h). Burner readers are the ones D-009 allows.

@@ -1,25 +1,30 @@
-# Numbers and status only. Every value says how it was checked. Updated 2026-10-07 01:20 +0300 by HELM.
+# Numbers and status only. Every value says how it was checked. Updated 2026-10-07 02:15 +0300 by HELM (Claude, close-up).
 project: tech_monitor
 status: WARM            # must match C:\PROJECTS\PROJECTS.yaml
-live: none
+live: collector
 last_result:
-  what: "all four zones collecting; first top-findings lists produced"
-  checked: "sqlite count by zone on data/deals.sqlite3, 2026-10-07 01:08: EG 59,035, UAE 1,673, KSA 1,928, US 647, total 63,283"
-counts:
-  listings_total: 63283
-  by_zone: {EG: 59035, UAE: 1673, KSA: 1928, US: 647}
-  facebook_burner_first_pass: {EG: 356, UAE: 398, KSA: 329}   # data/watch logs, 2026-10-07 00:45-00:58
+  what: "all four zones collecting; burner shop modules (Gulf + US) wired in and scheduled; first top-findings lists produced"
+  checked: "sqlite read-only count on data/deals.sqlite3, 2026-10-07 02:10: 63,630 listings (zone EG 10,740 tagged + 48,642 older Egyptian rows with no zone field, read as EG; UAE 1,673; KSA 1,928; US 647), 1,378 source_runs rows. Taken BEFORE the first burner-shop run finished, so burner shop rows are not counted yet."
+collector:
+  running: "scripts/watch_all.py restarted cleanly 2026-10-07 02:12:46 (stop file, loop exited at 02:10:19, stop file deleted, started hidden). This is a snapshot, re-check it with how_to_check. Checked in data/watch_all.log: 'START burner-gulf-shops' at 02:12:46."
+  how_to_check: "RUNBOOK.md, section Always-on collector"
+  jobs_hours: {egypt-shops: 4, uae-ksa-stores: 3, us-stores: 4, burner-gulf-shops: 6, burner-us-shops: 8, facebook-EG: 8, facebook-UAE: 8, facebook-KSA: 8}
+  alerts: off
 sources_working:
-  EG: 20 of 23 on 2026-10-06 (fixes in progress for egprices, elyamama, noon, amazon-eg, btech, elbadr)
-  UAE_KSA: [amazon_ae, amazon_sa, opensooq_ae, opensooq_sa, haraj_sa]
-  US: [us_wisetek, us_techmikeny, us_pcliquidations, us_reddit_hardwareswap]
-  facebook_marketplace: [EG mansoura, UAE dubai, KSA riyadh]
-sources_blocked: "see DECISIONS D-007 and each source's status in source_runs"
-routes: {UAE: "UAE traveler", KSA: "Saudi traveler", US: "to a UAE address, then UAE traveler"}
+  EG: "20 of 23 on 2026-10-06 plus Noon, Dubizzle EG via burner modules; weak: jumia (63 rows), tv-it (77), facebook-public (0), noon plain (1)"
+  UAE_KSA_plain: [amazon_ae, amazon_sa, opensooq_ae, opensooq_sa, haraj_sa]
+  US_plain: [us_wisetek, us_techmikeny, us_pcliquidations, us_reddit_hardwareswap]
+  burner_gulf (egypt_deals/burner_retail_gulf.py): {works: [Noon UAE, Noon KSA, Noon EG, Sharaf DG, Jumbo, eXtra, Jarir, Dubizzle UAE, Dubizzle EG], walled: [Microless]}
+  burner_us (egypt_deals/burner_retail_us.py): {works: [eBay, B&H, Best Buy, Back Market], walled_every_time: [Newegg, Micro Center, Swappa], no_usd_prices: "Amazon.com from an Egypt-located browser"}
+  facebook_marketplace_burner: {scheduled_in_watch_all: [EG mansoura, UAE dubai, KSA riyadh], script_supports_but_not_scheduled: [US newyork]}
+  note: "walls vary with load; a site that works today can wall tomorrow. Verdict per site is in source_runs (state 'wall' or 'ok')."
+routes: {UAE: "UAE traveler carries UAE items; US orders are shipped to a UAE address then carried", KSA: "Saudi traveler carries Saudi items", landed_cost: "unconfirmed until real quotes exist, never zero"}
 budget_egp_device: 70000        # extra monitor (screen) excluded
 hermes: {cap_usd: 2, spent_usd: 0.01, balance_usd: 22.05, checked: "2026-10-07 00:47 store_payments job"}
 alerts: off
-collector: "scripts/watch_all.py running since 2026-10-07 01:10 (no alerts)"
-tests: "140 pass, 1 skip, 1 known Windows-permission fail (pytest -q, 2026-10-07)"
+tests: "178 passed, 1 skipped (pytest -q, 2026-10-07 02:11). The old failing Telegram test was a Windows-permission assert; now skipped on Windows only."
+known_bug_fixed: "egypt-shops job exited 1 at 02:10 with KeyError 'status' (report step; UAE/KSA/US rows have no 'status'). Fixed in egypt_deals/cli.py, checked with `cli export` on a copy of the database."
 git:
   remote: none          # gh repo only after Zayed says public/private
+  untracked_on_purpose: [Set-Up-Telegram.cmd, Start-Monitor-With-Telegram.cmd, TELEGRAM-SETUP.md, TRANSFER-MANIFEST.json]
+backups_not_deleted: ["C:\Users\HP\Desktop\EgyptDeals", "C:\Users\HP\Desktop\EgyptDeals-Transfer", "C:\Users\HP\Downloads\Telegram Desktop (49 .part files, 560 items in the folder)"]

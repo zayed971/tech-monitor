@@ -172,6 +172,7 @@ def test_start_message_connects_and_enters_bounded_monitor(tmp_path,monkeypatch,
     assert sum(method=='sendMessage' for method,_ in calls)==1
     assert 'watch' in launched[0] and '--send' in launched[0]
     assert (tmp_path/'data/watch.json').exists()
-    assert (tmp_path/'.env').stat().st_mode & 0o777==0o600
+    if os.name!='nt':  # Windows ignores POSIX chmod bits, so 0600 cannot be checked there
+        assert (tmp_path/'.env').stat().st_mode & 0o777==0o600
     output=capsys.readouterr().out
     assert 'test-token' not in output and '/start' not in output

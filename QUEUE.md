@@ -1,8 +1,8 @@
 # Queue (tech_monitor)
 ## NOW (max 3)
-- Baseline: venv, tests, one monitor pass with no alerts. Done when tests pass and new rows appear in data/deals.sqlite3.
-- Facebook: open the burner Chrome sign-up page for Zayed (he completes it himself). Done when he says he is signed in.
-- Zones: source lists for UAE, Saudi and US (reuse cheap_tech lists, Hermes fills gaps). Done when each source has a zone and payment flags.
+- Baseline first pass RUNNING (started 2026-10-06 23:02, no alerts): done when it ends and source_runs grows. Tests: 68 pass, 1 skipped, 1 fails (a Unix file-permission check, Windows only).
+- Facebook: sign-up page is OPEN in the burner Chrome (23:00). Done when Zayed says he is signed in.
+- Zones: seed list done (global_sources_seed.csv: 10 UAE, 7 KSA, 17 US, all unverified). Next: Hermes verifies payments/condition per store (cap US$2), then adapters.
 
 ## NEXT
 - Add fields: zone, country, payments, hand-carry landed cost.

@@ -283,7 +283,7 @@
     "comparison_only": true,
     "max_details": 40,
     "interval_hours": 24,
-    "revision": 1
+    "revision": 2
   },
   {
     "id": "jumia",
@@ -314,7 +314,8 @@
     "max_details": 1,
     "interval_hours": 24,
     "sampling_note": "Light touch: at most two search pages and one product per scheduled daily cycle.",
-    "rotate_inventory": false
+    "rotate_inventory": false,
+    "revision": 1
   },
   {
     "id": "noon",

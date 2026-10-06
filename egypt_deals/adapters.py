@@ -4,6 +4,7 @@ from datetime import timedelta
 from urllib.parse import quote, urljoin, urlsplit,unquote
 from xml.etree import ElementTree
 
+import httpx
 from bs4 import BeautifulSoup
 
 from .http import FetchError
@@ -192,6 +193,18 @@ def product_html(html, source, url, observed):
             elif item.stock == 'unknown':
                 item.stock = availability
         return result
+    if source.get('id') == 'amazon-eg' and soup.select_one('#productTitle'):
+        # Amazon product pages carry no JSON-LD: read the visible buy-box price and availability.
+        amazon_title = soup.select_one('#productTitle').get_text(' ', strip=True)
+        amazon_price = soup.select_one('#corePrice_feature_div .a-offscreen, #corePriceDisplay_desktop_feature_div .a-offscreen')
+        amount = money(amazon_price.get_text()) if amazon_price else None
+        note = soup.select_one('#availability')
+        note_text = normalized(note.get_text(' ', strip=True)).lower() if note else ''
+        amazon_stock = 'out_of_stock' if 'unavailable' in note_text else stock(note_text)
+        if amount is None or not interested(amazon_title, source): return []
+        return [Listing(store=source["name"], source=source["id"], url=url, raw_title=amazon_title,
+            price_egp=amount, stock=amazon_stock, observed_at=observed, verified_at=observed,
+            condition="new", comparison_only=source.get("comparison_only", False)).finish()]
     price = root.select_one('[itemprop="price"], .product-price-new, .product-price, .price-new, .ty-price-num')
     if not title or not price or not interested(title.get_text(), source): return []
     description = soup.select_one('#tab-description, .product-description, .woocommerce-product-details__short-description')
@@ -296,7 +309,7 @@ def collect(source, client, max_pages=3, max_details=8, verification_sources=Non
                 all_listings.extend(parsed);pending.extend(parsed)
                 if not parsed:metadata['empty_product_pages'].append(target)
                 consecutive_empty=0 if parsed else consecutive_empty+1
-            except (FetchError,KeyError,TypeError,ValueError) as exc:
+            except (FetchError,KeyError,TypeError,ValueError,httpx.InvalidURL) as exc:
                 error=str(exc);failures.append(error);metadata['failed_product_pages'].append({'url':target,'reason':error})
             metadata['detail_attempted_this_run']+=1
             observe(state,target,stamp,len(parsed),error)
@@ -405,8 +418,8 @@ def collect(source, client, max_pages=3, max_details=8, verification_sources=Non
                     loc=next((e.text for e in node if e.tag.split('}')[-1]=='loc'),None)
                     if source.get('prefer_english'):
                         alternative=next((e.get('href') for e in node if e.get('hreflang')=='en'),None)
-                        if alternative:loc=alternative
-                    if loc:entries.append(loc)
+                        if alternative:loc=alternative.strip()
+                    if loc:entries.append(loc.strip())
                 if root.tag.split('}')[-1]=='sitemapindex':
                     pattern=source.get('sitemap_include')
                     queue.extend(u for u in entries if not pattern or re.search(pattern,u))

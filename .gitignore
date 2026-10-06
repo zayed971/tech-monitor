@@ -13,3 +13,7 @@ data/
 .env.*
 !.env.example
 data/local-chrome-profile/
+
+egypt_deals.egg-info/
+*.egg-info/
+

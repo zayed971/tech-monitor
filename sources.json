@@ -351,5 +351,237 @@
     "public_page_limit": 4,
     "interval_hours": 24,
     "revision": 1
+  },
+  {
+    "id": "dream2000",
+    "name": "Dream 2000",
+    "base": "https://dream2000.com",
+    "adapter": "shopify",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "zstations",
+    "name": "Z-Station",
+    "base": "https://zstations.com",
+    "adapter": "shopify",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "recoverytrading",
+    "name": "Recovery Trading",
+    "base": "https://recoverytrading.org",
+    "adapter": "woo",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "king_tech_eg",
+    "name": "King Tech",
+    "base": "https://king-tech-eg.com",
+    "adapter": "shopify",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "dokkantech",
+    "name": "DokkanTech",
+    "base": "https://dokkantech.com",
+    "adapter": "shopify",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "wifigroup",
+    "name": "WiFi Group",
+    "base": "https://wifigroup.shop",
+    "adapter": "shopify",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "egdigitaldreams",
+    "name": "Digital Dreams",
+    "base": "https://egdigitaldreams.com",
+    "adapter": "woo",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "geeksstoreeg",
+    "name": "Geeks Store",
+    "base": "https://geeksstoreeg.com",
+    "adapter": "woo",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "v2comeg",
+    "name": "V2Com Egypt",
+    "base": "https://v2comeg.com",
+    "adapter": "shopify",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "myxprs",
+    "name": "XPRS",
+    "base": "https://myxprs.com",
+    "adapter": "shopify",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "pctech_eg",
+    "name": "PC Tech Store",
+    "base": "https://pctech-eg.com",
+    "adapter": "shopify",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "venomtecheg",
+    "name": "Venom Technology",
+    "base": "https://venomtecheg.com",
+    "adapter": "shopify",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "squaretec",
+    "name": "Square Tech",
+    "base": "https://squaretec.store",
+    "adapter": "shopify",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "elmasrypc",
+    "name": "El Masry PC",
+    "base": "https://elmasrypc.com",
+    "adapter": "woo",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "lordlaptop",
+    "name": "Lord Laptops",
+    "base": "https://lordlaptop.com",
+    "adapter": "shopify",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "awfarlak",
+    "name": "Awfarlak",
+    "base": "https://awfarlak.com",
+    "adapter": "woo",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "laptopmasr",
+    "name": "Laptop Masr",
+    "base": "https://laptopmasr.com",
+    "adapter": "woo",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "alsahaba",
+    "name": "Al Sahaba Laptop",
+    "base": "https://alsahaba.com.eg",
+    "adapter": "woo",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "targetstoreg",
+    "name": "Target Store",
+    "base": "https://targetstoreg.com",
+    "adapter": "shopify",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "digital",
+    "name": "Digital",
+    "base": "https://digital.com.eg",
+    "adapter": "woo",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "dar_elcomputer",
+    "name": "Dar El Computer",
+    "base": "https://dar-elcomputer.com",
+    "adapter": "shopify",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "elhamd",
+    "name": "Elhamd Computer Supplies",
+    "base": "https://elhamd.net",
+    "adapter": "woo",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "hankerz",
+    "name": "Hankerz",
+    "base": "https://hankerz.com.eg",
+    "adapter": "woo",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "compunilestore",
+    "name": "Compu Nile Store",
+    "base": "https://compunilestore.com",
+    "adapter": "woo",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "imapstores",
+    "name": "iMap Stores",
+    "base": "https://imapstores.com",
+    "adapter": "woo",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "static_eg",
+    "name": "Static",
+    "base": "https://static-eg.com",
+    "adapter": "woo",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "moreshopping",
+    "name": "More Shopping",
+    "base": "https://moreshopping.com",
+    "adapter": "shopify",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "techno1",
+    "name": "Techno1",
+    "base": "https://techno1.net",
+    "adapter": "shopify",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
+  },
+  {
+    "id": "wifitotallynetworking",
+    "name": "WiFi Totally Networking",
+    "base": "https://wifitotallynetworking.com",
+    "adapter": "woo",
+    "interval_hours": 24,
+    "harvest_scope": "catalog"
   }
 ]

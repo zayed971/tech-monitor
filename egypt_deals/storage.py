@@ -32,7 +32,7 @@ class Database:
 
     def listings(self):
         allowed = Listing.__dataclass_fields__
-        return [Listing(**{k:v for k,v in json.loads(r[0]).items() if k in allowed}) for r in self.db.execute('SELECT payload FROM listings')]
+        return [Listing(**{k:v for k,v in json.loads(r[0]).items() if k in allowed}).refresh_on_read() for r in self.db.execute('SELECT payload FROM listings')]
 
     def previous(self, listing, hours=24):
         end = date_value(listing.observed_at)

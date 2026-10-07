@@ -33,6 +33,13 @@ Kinds: laptop gpu pc ram ssd cpu motherboard psu. Zones: EG UAE KSA US. Budget d
 More examples: `--kind pc --kind ram --kind ssd --zone EG --condition used --limit 10` ; `--max-age-hours 24` ; `--out data\my_list.md` also saves the list.
 CAUTION: the spec reader still mislabels some GPUs (QUEUE NOW), so check a GPU title yourself before saying "buy this". Landed cost shows "unconfirmed" for UAE, KSA and US items until real quotes exist; it is never zero. Give Zayed the source, time and stock status of every price.
 
+## Search any model, or check a listing you found (read only)
+```
+.venv\Scripts\python.exe scripts\find.py --q "K552|G403" --zone EG --condition new --limit 0
+.venv\Scripts\python.exe scripts\check_listing.py --title "Zotac RTX 3060 12GB" --price 12000 --currency EGP --condition used
+```
+`find.py` shows every match, not a top 10; a `*` after the condition means "assumed new, the shop only sells new". `check_listing.py` reads the specs from the title you paste and compares the price with stored prices; it never fetches or posts anything. Both take about 30 s because they read every stored row.
+
 ## Always-on collector (no alerts)
 Start (hidden, no window). Only ONE at a time: check first with the next block.
 ```

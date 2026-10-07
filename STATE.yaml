@@ -1,4 +1,4 @@
-# Numbers and status only. Every value says how it was checked. Updated 2026-10-07 02:15 +0300 by HELM (Claude, close-up).
+# Numbers and status only. Every value says how it was checked. Updated 2026-10-07 06:40 +0300 by Claude (scraper upgrade, D-011).
 project: tech_monitor
 status: WARM            # must match C:\PROJECTS\PROJECTS.yaml
 live: collector
@@ -22,8 +22,9 @@ routes: {UAE: "UAE traveler carries UAE items; US orders are shipped to a UAE ad
 budget_egp_device: 70000        # extra monitor (screen) excluded
 hermes: {cap_usd: 2, spent_usd: 0.01, balance_usd: 22.05, checked: "2026-10-07 00:47 store_payments job"}
 alerts: off
-tests: "178 passed, 1 skipped (pytest -q, 2026-10-07 02:11). The old failing Telegram test was a Windows-permission assert; now skipped on Windows only."
-known_bug_fixed: "egypt-shops job exited 1 at 02:10 with KeyError 'status' (report step; UAE/KSA/US rows have no 'status'). Fixed in egypt_deals/cli.py, checked with `cli export` on a copy of the database."
+tests: "190 passed, 1 skipped (pytest -q, 2026-10-07 about 06:38), includes tests/test_upgrade_2026_10_07.py. The old failing Telegram test is skipped on Windows only."
+known_bug_fixed: "egypt-shops KeyError 'status' (D-010): PROVEN LIVE. The 06:12 pass ended exit=0 at 06:36:21 (data/watch_all.log) and wrote the report. That pass had loaded its code before the D-011 upgrade."
+upgrade_d011: "2026-10-07 (DECISIONS D-011): condition defaults for new-only shops, storage parser, PSU/UPS price sanity, wanted-ad filter, classifier, same-model folding, 429 backoff, find.py, check_listing.py. Measured by reading all 65,327 stored rows through the new rules: condition new 57,374 / unknown 4,325; 220 rows flagged not-a-real-offer; PCs/laptops with storage under 64 GB: 1 (37 in the 72 h sample before). Old rows are fixed at read time; the database file is untouched."
 git:
   remote: none          # gh repo only after Zayed says public/private
   untracked_on_purpose: [Set-Up-Telegram.cmd, Start-Monitor-With-Telegram.cmd, TELEGRAM-SETUP.md, TRANSFER-MANIFEST.json]

@@ -42,6 +42,16 @@ def date_value(value):
     except (ValueError, TypeError):
         return None
 
+# Shops that sell only new stock. A listing from one with no used/refurbished marker is new (basis: source_default).
+# Marketplaces (Amazon, Noon third parties, Facebook, OpenSooq, Haraj) and aggregators are NOT here: they mix conditions.
+NEW_ONLY_SOURCES = {
+    '2b', 'btech', 'egyptlaptop', 'raya', 'jumia', 'noon',
+    'br_noon_ae', 'br_noon_sa', 'br_noon_eg', 'br_sharaf_ae', 'br_jumbo', 'br_extra_sa', 'br_jarir_sa', 'br_microless',
+    'br_us_bestbuy', 'br_us_bh', 'br_us_newegg', 'br_us_microcenter',
+    'sharaf_ae', 'jumbo', 'extra_sa', 'jarir_sa', 'microless', 'noon_ae', 'noon_sa',
+}
+
+
 def category(title):
     from .hardware import classify
     return classify(normalized(title))
@@ -120,8 +130,13 @@ def extract_specs(title, description=""):
             without_gpu=re.sub(r'(?:RTX|GTX)\s*A?\d{3,4}(?:\s*(?:Ti|SUPER|Ada))?\s*\d+\s*G(?:B)?\b|\d+\s*GB\s*(?:RTX|GTX)\s*A?\d{3,4}', '', title,re.I)
             capacities={int(x) for x in re.findall(r'\b(8|12|16|24|32|48|64|96|128)\s*GB\b',without_gpu,re.I)}
             if len(capacities)==1: specs['ram_gb']=capacities.pop()
-    storage = re.search(r'(?<![\w.])(\d+(?:\.\d+)?)\s*(GB|TB)?\s*(?:NVMe|SSD)\b', title, re.I)
-    if not storage: storage=re.search(r'(?:NVMe|SSD|M\.2)\s*(\d+(?:\.\d+)?)\s*(GB|TB)\b',title,re.I)
+    # Graphics-card memory ("RTX 5060 Ti 8GB") and PCIe generations ("PCIe 4.0 SSD") are not storage sizes.
+    storage_title = re.sub(r'(?:RTX|GTX|GT|RX|Radeon|Arc|Quadro)\s*[A-Za-z]?\d{3,4}(?:\s*(?:Ti|SUPER|XT|XTX|GRE|Ada))*\s*\d+\s*G(?:B)?\b|\b(?:4|6|8|10|12|16|24|32)\s*GB\s*(?:RTX|GTX|GDDR\d)', ' ', title, flags=re.I)
+    storage_title = re.sub(r'\b(?:pcie|gen|usb)\s*\d(?:\.\d)?', ' ', storage_title, flags=re.I)
+    storage = re.search(r'(?<![\w.])(\d+(?:\.\d+)?)\s*(GB|TB)?\s*(?:NVMe|SSD)\b', storage_title, re.I)
+    if storage and not storage.group(2) and float(storage.group(1)) < 128: storage = None
+    if not storage: storage=re.search(r'(?:NVMe|SSD|M\.2)\s*(\d+(?:\.\d+)?)\s*(GB|TB)\b',storage_title,re.I)
+    if not storage: storage=re.search(r'(?<![\w.])(\d+(?:\.\d+)?)\s*(GB|TB)\s*(?:M\.2|NVMe|PCIe|SATA)',storage_title,re.I)
     if storage: specs['storage_gb'] = int(float(storage.group(1))*(1000 if (storage.group(2) or '').upper()=='TB' else 1))
     if kind in {'ssd','hdd'}:
         capacity=re.search(r'\b(\d+(?:\.\d+)?)\s*(GB|TB)\b',title,re.I)
@@ -229,6 +244,7 @@ class Listing:
     specs: dict = field(default_factory=dict)
     spec_sources: dict = field(default_factory=dict)
     quality_issues: list = field(default_factory=list)
+    condition_basis: str | None = None    # title | source_default | None (the page itself said so, or unknown)
     # Zone layer (tech_monitor, 2026-10-07). Old rows have none of these and read back as Egypt.
     zone: str = "EG"                      # EG, UAE, KSA or US: where the item is bought
     country: str | None = None
@@ -238,6 +254,52 @@ class Listing:
     landed_egp: float | None = None       # only when a real quote exists; never a guess, never zero for "unknown"
     landed_status: str = "domestic"       # domestic | unconfirmed (reason in `route`) | quoted
 
+    def infer_condition(self):
+        """Condition from the title; else, for a shop that only sells new, new (marked as a source default).
+
+        Unknown stays unknown for marketplaces, classifieds and aggregators, where one source mixes conditions.
+        """
+        text = self.raw_title.lower()
+        if re.search(r"\b(?:used|as new|like new)\b|مستعمل|كسر زيرو", text): found = "used"
+        elif re.search(r"\b(?:refurbished|renewed|reconditioned)\b|مجدد", text): found = "refurbished"
+        elif re.search(r"\bopen[ -]box\b", text): found = "open_box"
+        else: found = None
+        if found:
+            self.condition, self.condition_basis = found, "title"
+        elif self.condition in (None, "unknown") and self.source in NEW_ONLY_SOURCES and self.source_kind != "used":
+            self.condition, self.condition_basis = "new", "source_default"
+        return self
+
+    def sanity_checks(self):
+        t = (self.raw_title + " " + self.description).lower()
+        if self.category in {'pc', 'laptop'} and self.specs.get('storage_gb') and self.specs['storage_gb'] < 64 \
+                and not re.search(r'\b(?:emmc|chromebook)\b', t):
+            self.quality_issues.append(f"Storage read as {self.specs['storage_gb']}GB, too small for a {self.category}; spec ignored")
+            self.specs['storage_gb'] = None
+        if self.category == 'psu' and self.specs.get('psu_w') and self.price_egp and self.specs['psu_w'] >= 300 \
+                and self.price_egp / self.specs['psu_w'] < 1.5:
+            self.quality_issues.append('Price implausible for the rated wattage (under 1.5 EGP per watt); likely mislabeled or fake')
+        if self.category == 'ups' and self.specs.get('ups_va') and self.price_egp and self.specs['ups_va'] >= 400 \
+                and self.price_egp / self.specs['ups_va'] < 1.5:
+            self.quality_issues.append('Price implausible for the rated VA (under 1.5 EGP per VA); likely a battery or mislabeled')
+        if re.search(r'(?<![\w])(?:wtb|wanted|looking\s+for|want\s+to\s+buy|buying|i\s+buy|we\s+buy)(?![\w])|مطلوب|ابحث عن|عايز اشتري|مطلوب شراء', self.raw_title, re.I)                 and self.source_kind == 'used' or re.search(r'مطلوب|wtb|^\s*(?:buying|wanted)', self.raw_title, re.I):
+            self.quality_issues.append('Wanted ad (someone is buying), not an item for sale')
+        self.quality_issues = list(dict.fromkeys(self.quality_issues))
+        return self
+
+    def refresh_on_read(self):
+        """Re-apply today's rules to a stored row so old data benefits without rewriting the database."""
+        fresh = category(normalized(self.raw_title))
+        if fresh != self.category and not (self.category == 'pc' and fresh == 'bundle'): self.category = fresh
+        sp = self.specs or {}
+        if self.category in {'pc', 'laptop'} and (sp.get('storage_gb') or 0) < 64:
+            sp['storage_gb'] = None
+            self.specs = sp
+            again = extract_specs(self.raw_title, self.description).get('storage_gb')
+            if again: self.specs['storage_gb'] = again
+        self.infer_condition()
+        return self.sanity_checks()
+
     def finish(self):
         self.raw_title = normalized(self.raw_title)
         if self.sku is not None: self.sku = str(self.sku)
@@ -246,13 +308,7 @@ class Listing:
         from .hardware import GEAR_CATEGORIES,gear_type
         self.accessory_type=gear_type(self.raw_title) if self.category in GEAR_CATEGORIES else None
         t = (self.raw_title + " " + self.description).lower()
-        condition_text=self.raw_title.lower()
-        if re.search(r"\b(?:used|as new|like new)\b|مستعمل|كسر زيرو", condition_text):
-            self.condition = "used"
-        elif "refurbished" in condition_text:
-            self.condition = "refurbished"
-        elif "open box" in condition_text:
-            self.condition = "open_box"
+        self.infer_condition()
         self.placeholder = self.placeholder or self.price_egp is None or self.price_egp < 100 or any(x in t for x in ["coming soon", "قريبا", "قريباً"])
         explicit = extract_specs(self.raw_title, self.description)
         self.specs = {**{k: None for k in SPEC_FIELDS}, **explicit, **self.specs}
@@ -299,6 +355,7 @@ class Listing:
             description_memory=re.search(r'\b(?:RAM|Memory)\s*[:\-]?\s*\d+\s*GB\s*DDR\s*([345])\b',self.description,re.I)
             if title_memory and description_memory and title_memory.group(1)!=description_memory.group(1):
                 self.quality_issues.append('Laptop title and memory description disagree on DDR generation; verify installed RAM')
+        self.sanity_checks()
         if self.category == 'ram':
             if self.parent_title and self.variant_title:
                 parent_sizes={int(v) for v in re.findall(r'\b(\d+)\s*G(?:B)?\b',self.parent_title,re.I)}

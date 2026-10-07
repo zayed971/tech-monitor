@@ -71,8 +71,14 @@ def row(listing):
     }
 
 
+def not_a_real_offer(listing):
+    """Price makes no sense for the item, or the ad is a buyer's 'wanted' post."""
+    return any('implausible' in q or 'Wanted ad' in q for q in listing.quality_issues)
+
+
 def usable(listing, max_age_hours=None):
     if listing.placeholder or listing.price_egp is None or listing.comparison_only: return False
+    if not_a_real_offer(listing): return False
     if listing.stock == 'out_of_stock': return False
     if max_age_hours is not None:
         age = age_hours(listing)
@@ -125,11 +131,23 @@ def pick(listings, kind, budget, zones=None, conditions=None, limit=15, max_age_
     def order(r):
         value = r['value'] if r['value'] is not None else (-(r['price_egp'] / (r['score'] or 1)))
         return (r['stock'] not in ('in_stock', 'ad listed (unconfirmed)'), r['stock'] != 'in_stock', -value, r['price_egp'])
-    best = {}
+    best, more = {}, {}
     for r in sorted(out, key=order):
-        key = (r['zone'], r['store'], r['title'][:60].lower())
-        best.setdefault(key, r)
+        key = model_key(r)
+        if key in best: more[key] = more.get(key, 0) + 1
+        else: best[key] = r
+    for key, r in best.items(): r['more_offers'] = more.get(key, 0)
     return sorted(best.values(), key=order)[:limit]
+
+
+def model_key(r):
+    """One row per model per zone and condition: stores selling the same model are folded into the cheapest ('+N more').
+
+    The model is the set of letter+digit tokens of 4+ characters in the title (MP225, K552, 5600X, LS1210GP). A title with none
+    keeps one row per store and title, so unlike products are never merged by accident."""
+    tokens = sorted({t for t in re.findall(r'[a-z0-9]{4,}', r['title'].lower()) if re.search(r'\d', t) and re.search(r'[a-z]', t)})
+    if tokens: return (r['zone'], r['condition'], r['category'], tuple(tokens))
+    return (r['zone'], r['store'], r['title'][:60].lower())
 
 
 def load(root):
@@ -157,7 +175,7 @@ def report(root, budget=70000, kinds=('laptop', 'gpu', 'pc', 'ram', 'ssd'), zone
         for i, r in enumerate(rows, 1):
             price = f"{r['price_local']:,.0f} {r['currency']}" if r['price_local'] else ''
             title = r['title'].replace('|', '/').replace('[', '(').replace(']', ')')
-            lines.append(f"| {i} | {r['zone']} | {r['store']} | [{title}]({r['url']}) | {r['condition']} | {r['stock']}{' (aggregator, verify)' if r['src']=='aggregator' else ''} | "
+            lines.append(f"| {i} | {r['zone']} | {r['store']} | [{title}]({r['url']}) | {r['condition']} | {r['stock']}{' (aggregator, verify)' if r['src']=='aggregator' else ''}{(' +' + str(r['more_offers']) + ' more stores') if r.get('more_offers') else ''} | "
                          f"{price} | {r['price_egp']:,.0f} | {r['landed']} | {r['payments']} | {r['age_h']} |")
         lines.append('')
     return '\n'.join(lines), data

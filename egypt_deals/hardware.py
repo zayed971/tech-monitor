@@ -91,7 +91,7 @@ def classify(t):
     gear=gear_category(t)
     if gear:return gear
     if re.search(r'\b(?:smartphone|mobile phone|nothing phone|galaxy|iphone|redmi|poco|oppo|realme|honor|infinix|tecno|ipad|tablet|smartwatch|pixel|oneplus|vivo|zte|micromax|hmd|nokia|dual sim|smart tv|tv box|television|washing machine|refrigerator|dishwasher|air fryer|trimmer|oven|stove|microwave)\b|\bhuawei\s+(?:mate\s*\d|p\s*\d|nova)|\blenovo\s+tab\b|detachable tab',t): return 'other'
-    if re.search(r'\b(?:android|4g|5g|lte)\b',t) and not re.search(r'\b(?:router|modem|laptop|notebook|chromebook|workstation)\b',t): return 'other'
+    if re.search(r'\b(?:android|4g|5g|lte)\b',t) and not re.search(r'\b(?:router|modem|laptop|notebook|chromebook|workstation|graphics? card|gpu|rtx|gtx|radeon|geforce|ddr[2345]|ssd|nvme)\b',t): return 'other'
     if re.search(r'\b(?:cctv|nvr|dvr|ip camera|security camera|imou|dashcam)\b',t):return 'other'
     if re.search(r'\b(?:usb flash|flash drive|pendrive|micro[ -]?sd|sdxc|sdhc|flash memory|memory card)\b',t):return 'accessory'
     cpu=bool(re.search(r'\b(?:i[3579][\s-]*\d{4,5}[a-z]{0,3}|ryzen\s*(?:ai\s*)?[3579]|threadripper|core\s+(?:ultra\s+)?[3579]|snapdragon\s+x|xeon|celeron|pentium)\b',t))
@@ -109,10 +109,12 @@ def classify(t):
     if re.search(r'\b(?:router|network switch|access point|mesh wifi|ethernet card|network adapter|usb[ -]?hub|docking|dock|nas)\b',t): return 'network'
     if re.search(r'\b(?:keyboard|mouse|headset|headphone|earphone|webcam|gamepad)\b',t) and not cpu: return 'peripheral'
     if re.search(r'\b(?:backpack|bag|sleeve|adapter|charger)\b',t) and not cpu: return 'accessory'
+    # Camera/CCTV/LED/router DC supplies and mini DC UPS units are not PC power gear.
+    if re.search(r'\b(?:camera|cctv|led|router|poe|dc)\s+(?:power\s+supply|ups)\b|\bmini\s+(?:dc\s+)?ups\b|\b(?:power supply|ups)\b.*\b12\s*v\b|\b12\s*v\b.*\b(?:power supply|ups)\b',t) and not re.search(r'\b(?:atx|80\s*(?:\+|plus)|\d{3,4}\s*va)\b',t): return 'accessory'
     if re.search(r'\b(?:power supply|psu)\b|\b\d{3,4}\s*w\b.*\b80\s*(?:\+|plus)',t) and not cpu:return 'psu'
     if re.search(r'\b(?:full pc|used pc|gaming pc|desktop pc|mini pc|mini computer|intel nuc|deskmini|tower workstation|tower pc|كمبيوتر كامل|تجميعة)\b',t) or re.search(r'\b(?:precision\s+(?:58\d0|36\d0|t[357]\d{3})|prodesk|elitedesk|optiplex|thinkcentre)\b',t): return 'pc'
     if re.search(r'\bmsi\s+modern\s+am\d|\ball[ -]in[ -]one\s+(?:pc|computer|desktop)\b',t): return 'pc'
-    if not family and ((cpu and t.count('+')>=2) or re.search(r'\b(?:bundle|bundel|buindle)\b',t)):
+    if not family and ((cpu and (t.count('+')>=2 or t.count('|')>=2)) or re.search(r'\b(?:bundle|bundel|buindle)\b',t)):
         complete=bool(re.search(r'\b(?:rtx|gtx|rx\s*\d{4})\b',t) and re.search(r'\b(?:ssd|nvme)\b',t) and re.search(r'\b(?:ddr[2345]|ram)\b',t) and re.search(r'\b(?:case|psu|power supply|bronze)\b',t))
         return 'pc' if complete else 'bundle'
     if re.search(r'\b(?:motherboard|mainboard|لوحة ام)\b',t) or (re.search(r'\b(?:b[45678][456]0e?|a[356]20|z[678]90|x[5678]70e?|h[4567]10)[a-z-]*\b',t) and not (cpu and (family or 'laptop' in t))): return 'motherboard'
@@ -128,5 +130,7 @@ def classify(t):
     if re.search(r'\b(?:ram|memory|sodimm|so-dimm|[ru]?dimm|ddr[2345])\b',t): return 'ram'
     if cpu or re.search(r'\b(?:processor|cpu)\b',t): return 'cpu'
     if re.search(r'\b(?:bundle|bundel)\b',t): return 'bundle'
-    if re.search(r'\bcase\b',t): return 'case'
+    if re.search(r'\bcase\b|\b(?:chassis|(?:mid|full|mini)[ -]?tower)\b',t): return 'case'
+    if re.search(r'\b(?:unmanaged|managed|poe\+?|gigabit|sfp\+?|patch panel|transceiver)\b',t) and re.search(r'\b(?:switch|ports?|sfp\+?|panel|transceiver|router)\b',t): return 'network'
+    if re.search(r'\b\d{2,3}\s*mm\b.*\bfans?\b|\bfans?\b.*\b(?:argb|pwm|rgb)\b|\bcase fans?\b|\bargb\b.*\bfans?\b',t): return 'cooler'
     return 'other'

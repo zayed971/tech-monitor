@@ -67,15 +67,22 @@ class Client:
         origin = "{0.scheme}://{0.netloc}".format(urlsplit(url))
         host = urlsplit(url).hostname.removeprefix("www.")
         if host in self.blocked: raise FetchError("host paused after access/rate-limit failure")
-        delay = max(self.delay, self.robots.get(origin, Robots("")).delay)
-        time.sleep(max(0, delay - (time.monotonic() - self.last.get(host, 0))))
-        try:
-            response = self.http.get(url)
-        except httpx.HTTPError:
-            raise FetchError("network or TLS error") from None
-        finally:
-            self.last[host] = time.monotonic()
-        self.requests += 1
+        extra = getattr(self, "slow", {})
+        for attempt in range(3):
+            delay = max(self.delay, self.robots.get(origin, Robots("")).delay) * extra.get(host, 1)
+            time.sleep(max(0, delay - (time.monotonic() - self.last.get(host, 0))))
+            try:
+                response = self.http.get(url)
+            except httpx.HTTPError:
+                raise FetchError("network or TLS error") from None
+            finally:
+                self.last[host] = time.monotonic()
+            self.requests += 1
+            if response.status_code != 429 or attempt == 2: break
+            # Rate limited: slow down for this host (doubling, up to 8x) and wait out Retry-After (at most 90 s) before one retry.
+            self.slow = extra = {**extra, host: min(8, extra.get(host, 1) * 2)}
+            wait = response.headers.get("retry-after", "")
+            time.sleep(min(90, int(wait)) if wait.isdigit() else 30)
         if response.status_code in {401, 403, 429}:
             self.blocked.add(host)
         return response

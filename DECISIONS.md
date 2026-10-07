@@ -44,3 +44,11 @@
 - New tools: scripts/find.py (any model or keyword, full results) and scripts/check_listing.py (paste a listing found anywhere; it compares the price with stored data). Findings fold the same model sold by several stores into the cheapest row ("+N more stores").
 - HTTP: a 429 now slows that host (2x, up to 8x), waits Retry-After (max 90 s) and retries twice before pausing it. Not a way around a block: 401/403 still pause the host.
 - Not done, on purpose: the "40k bundle" comparison and the 292-page PDF come from an older Codex report, not from this code. Coverage gaps (Technology Valley, 2B, Raya pages never visited) need more detail passes, not code changes.
+
+## D-012 Deal hunt = rules first, Hermes reads, the internet verifies  [ACTIVE]
+- Date: 2026-10-07. Decided by: Claude on Zayed's ask ("check the internet for the new and used prices, or let hermes do his job, if heavy let him read all the collection").
+- Stage 1 (no money): scripts/deal_scan.py picks rows by rule (markdown on the page, cheap vs same-model peers, dropped in 14 days, used far under new, abroad far under Egypt). Model identity = model code plus capacity, pack size and screen size (findings.model_tokens); before that fix, "SN850X 1TB" was matched against 2TB and 4TB and produced fake gaps.
+- Stage 2 (Hermes, zero tools, within D-004's US$2 cap; about US$0.02 spent): scripts/hermes_review.py reads the whole shortlist in batches of 40 and keeps at most 5 "look" picks per batch. Hermes judges only the text of each row; it does not know current prices.
+- Stage 3 (internet): every pick that matters is checked against live shop pages with a source and a date before it is called a find. Hermes' "look" is not a verdict.
+- Known weakness: the peer-gap rule is unreliable for motherboards and coolers (one chipset or socket name spans many different boards); those rows were not trusted.
+- Fix made on the way: stray backspace characters (from `\b` typed inside normal Python strings) had slipped into the regexes of findings.py and model.py (the wanted-ad rule shipped in D-011 was affected); replaced with real word boundaries, tests green.

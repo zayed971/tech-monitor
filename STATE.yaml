@@ -20,7 +20,7 @@ sources_working:
   note: "walls vary with load; a site that works today can wall tomorrow. Verdict per site is in source_runs (state 'wall' or 'ok')."
 routes: {UAE: "UAE traveler carries UAE items; US orders are shipped to a UAE address then carried", KSA: "Saudi traveler carries Saudi items", landed_cost: "unconfirmed until real quotes exist, never zero"}
 budget_egp_device: 70000        # extra monitor (screen) excluded
-hermes: {cap_usd: 2, spent_usd: 0.01, balance_usd: 22.05, checked: "2026-10-07 00:47 store_payments job"}
+hermes: {cap_usd: 2, spent_usd: 0.04, balance_usd: 22.02, checked: "2026-10-07 16:04 deal-review job (balance 22.06 at the first payments job, 22.02 after)"}
 alerts: off
 tests: "190 passed, 1 skipped (pytest -q, 2026-10-07 about 06:38), includes tests/test_upgrade_2026_10_07.py. The old failing Telegram test is skipped on Windows only."
 known_bug_fixed: "egypt-shops KeyError 'status' (D-010): PROVEN LIVE. The 06:12 pass ended exit=0 at 06:36:21 (data/watch_all.log) and wrote the report. That pass had loaded its code before the D-011 upgrade."
@@ -29,3 +29,5 @@ git:
   remote: none          # gh repo only after Zayed says public/private
   untracked_on_purpose: [Set-Up-Telegram.cmd, Start-Monitor-With-Telegram.cmd, TELEGRAM-SETUP.md, TRANSFER-MANIFEST.json]
 backups_not_deleted: ["C:\Users\HP\Desktop\EgyptDeals", "C:\Users\HP\Desktop\EgyptDeals-Transfer", "C:\Users\HP\Downloads\Telegram Desktop (49 .part files, 560 items in the folder)"]
+deal_hunt: "2026-10-07 16:05: scripts/deal_scan.py (no money) flagged 518 of 15,504 fresh rows in scope; Hermes (scripts/hermes_review.py, 13 batches of 40, 2 passes, about US$0.02) judged all 518; 60 picks, internet-checked 8 (Exa search, 2026-10-07). Result: no goldmine in SSD, gadgets or accessories; Egyptian prices are tight across shops, many 'was' prices are fake anchors. Files: data/deal_scan/ (git-ignored)."
+collector_check: "2026-10-07 16:08 +03: egypt-shops pass 15:03-15:29 ended exit=0 on the D-011 code (66,513 listings); burner-gulf-shops ended 14:43 exit=0."

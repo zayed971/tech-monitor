@@ -38,7 +38,7 @@ def gpu_of(listing):
     """GPU model for ranking, only when the title agrees with the spec reader and the card is NVIDIA RTX."""
     model = (listing.specs or {}).get('gpu_model')
     if not model or not str(model).upper().startswith('RTX'): return None
-    if re.search(r'radeon|RX\s*\d{4}', listing.raw_title, re.I): return None
+    if re.search(r'radeon|\bRX\s*\d{4}', listing.raw_title, re.I): return None
     return model if title_confirms(model, listing.raw_title) else None
 
 
@@ -140,13 +140,24 @@ def pick(listings, kind, budget, zones=None, conditions=None, limit=15, max_age_
     return sorted(best.values(), key=order)[:limit]
 
 
-def model_key(r):
-    """One row per model per zone and condition: stores selling the same model are folded into the cheapest ('+N more').
+def model_tokens(title):
+    """Identity of a product from its title: model codes (letters+digits, 4+ chars) plus capacity, pack size and screen size.
 
-    The model is the set of letter+digit tokens of 4+ characters in the title (MP225, K552, 5600X, LS1210GP). A title with none
-    keeps one row per store and title, so unlike products are never merged by accident."""
-    tokens = sorted({t for t in re.findall(r'[a-z0-9]{4,}', r['title'].lower()) if re.search(r'\d', t) and re.search(r'[a-z]', t)})
-    if tokens: return (r['zone'], r['condition'], r['category'], tuple(tokens))
+    "WD SN850X 1TB" and "WD SN850X 2TB" are different products, as are a 1-pack and a 3-pack of the same fan. None when the title has no
+    model code, so unlike products are never matched by accident."""
+    t = str(title).lower()
+    codes = {x for x in re.findall(r'[a-z0-9]{4,}', t) if re.search(r'\d', x) and re.search(r'[a-z]', x)}
+    if not codes: return None
+    caps = {re.sub(r'\s', '', m) for m in re.findall(r'\b\d+(?:\.?\d+)?\s?(?:gb|tb)\b', t)}
+    packs = {'pack' + m for m in re.findall(r'\b(\d)\s*(?:in\s?1|-?pack|pcs|pc|pieces)\b', t)}
+    sizes = {'in' + m for m in re.findall(r'\b(\d{2}(?:\.?\d)?)\s?(?:inch|in\b|")', t)}
+    return tuple(sorted(codes | caps | packs | sizes))
+
+
+def model_key(r):
+    """One row per model per zone and condition: stores selling the same model are folded into the cheapest ('+N more')."""
+    tokens = model_tokens(r['title'])
+    if tokens: return (r['zone'], r['condition'], r['category'], tokens)
     return (r['zone'], r['store'], r['title'][:60].lower())
 
 

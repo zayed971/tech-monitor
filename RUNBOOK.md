@@ -40,6 +40,13 @@ CAUTION: the spec reader still mislabels some GPUs (QUEUE NOW), so check a GPU t
 ```
 `find.py` shows every match, not a top 10; a `*` after the condition means "assumed new, the shop only sells new". `check_listing.py` reads the specs from the title you paste and compares the price with stored prices; it never fetches or posts anything. Both take about 30 s because they read every stored row.
 
+## Deal hunt (rules, then Hermes, then check the internet)
+```
+.venv\Scripts\python.exe scripts\deal_scan.py --limit 1500        (no money; writes data\deal_scan\shortlist.jsonl)
+.venv\Scripts\python.exe scripts\hermes_review.py                  (Hermes reads the shortlist; balance checked before every call; about US$0.02 per full run)
+```
+Then open data\deal_scan\hermes_verdicts.jsonl, take the "look" rows and check each one against a live shop page or the web for its price and date before calling it a deal. `--cats ssd,monitor` limits the scan to some categories.
+
 ## Always-on collector (no alerts)
 Start (hidden, no window). Only ONE at a time: check first with the next block.
 ```

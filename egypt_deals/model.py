@@ -282,7 +282,8 @@ class Listing:
         if self.category == 'ups' and self.specs.get('ups_va') and self.price_egp and self.specs['ups_va'] >= 400 \
                 and self.price_egp / self.specs['ups_va'] < 1.5:
             self.quality_issues.append('Price implausible for the rated VA (under 1.5 EGP per VA); likely a battery or mislabeled')
-        if re.search(r'(?<![\w])(?:wtb|wanted|looking\s+for|want\s+to\s+buy|buying|i\s+buy|we\s+buy)(?![\w])|مطلوب|ابحث عن|عايز اشتري|مطلوب شراء', self.raw_title, re.I)                 and self.source_kind == 'used' or re.search(r'مطلوب|wtb|^\s*(?:buying|wanted)', self.raw_title, re.I):
+        wanted = re.search(r'(?<![\w])(?:wtb|wanted|looking\s+for|want\s+to\s+buy|buying|i\s+buy|we\s+buy)(?![\w])|مطلوب|ابحث عن|عايز اشتري', self.raw_title, re.I)
+        if wanted and (self.source_kind == 'used' or re.search(r'مطلوب|\bwtb\b|^\s*(?:buying|wanted)\b', self.raw_title, re.I)):
             self.quality_issues.append('Wanted ad (someone is buying), not an item for sale')
         self.quality_issues = list(dict.fromkeys(self.quality_issues))
         return self

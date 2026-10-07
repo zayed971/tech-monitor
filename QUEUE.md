@@ -1,5 +1,6 @@
 # Queue (tech_monitor)
 ## NOW (max 3)
+- GAPS.md (2026-10-07) is the full gap register. Prove the fixes from it: after the next egypt-shops pass check that source_runs shows elbadr "ok" (sitemap fix), and that pricena rows are hidden in find.py. Then work its section 7 in order.
 - Burner jobs finished (02:22, 02:40) and egypt-shops ended exit=0 at 06:36 (KeyError fix proven live). Still to do: read which burner sites gave rows vs "wall" (source_runs state). The collector keeps running; its next job loads the D-011 code, so read that job's END line.
 - "What to buy": Zayed may buy a local PC soon. When he asks, run top_findings (RUNBOOK) for pc, gpu, ram, ssd, cpu, motherboard, psu in EG, then laptops; answer in plain words with the source, time and stock of every price.
 - Spec precision: the reader still mislabels some GPUs and can take the CPU from marketing text ("Ryzen 9 8945HS (Beat i9-13900H)" read as i9). Fix egypt_deals/model.py and add a test. Storage, condition, PSU/UPS and category fixes are done (D-011).

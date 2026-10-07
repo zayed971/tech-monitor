@@ -412,7 +412,10 @@ def collect(source, client, max_pages=3, max_details=8, verification_sources=Non
                 finally:
                     if previous_ttl is not None:client.ttl=previous_ttl
                 try:root=ElementTree.fromstring(body)
-                except ElementTree.ParseError:raise FetchError('invalid sitemap')
+                except ElementTree.ParseError:
+                    # A broken child sitemap (El Badr's product sitemap 2 returns a PHP notice) must not kill the whole source.
+                    if len(seen)==1:raise FetchError('invalid sitemap')
+                    metadata.setdefault('invalid_child_sitemaps',[]).append(address);continue
                 entries=[]
                 for node in root:
                     loc=next((e.text for e in node if e.tag.split('}')[-1]=='loc'),None)

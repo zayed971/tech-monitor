@@ -285,6 +285,12 @@ class Listing:
         wanted = re.search(r'(?<![\w])(?:wtb|wanted|looking\s+for|want\s+to\s+buy|buying|i\s+buy|we\s+buy)(?![\w])|مطلوب|ابحث عن|عايز اشتري', self.raw_title, re.I)
         if wanted and (self.source_kind == 'used' or re.search(r'مطلوب|\bwtb\b|^\s*(?:buying|wanted)\b', self.raw_title, re.I)):
             self.quality_issues.append('Wanted ad (someone is buying), not an item for sale')
+        if self.category in {'ssd', 'hdd'} and not self.variant_title:
+            sizes = sorted({float(n) * (1000 if u == 'tb' else 1) for n, u in re.findall(r'\b(\d+(?:\.\d+)?)\s?(tb|gb)\b', t) if float(n) * (1000 if u == 'tb' else 1) >= 240})
+            if len(sizes) > 1 and sizes[-1] / sizes[0] > 1.1:
+                self.quality_issues.append('Several capacities in the title and no variant: price belongs to an unknown size')
+        if self.zone == 'EG' and self.currency not in (None, 'EGP'):
+            self.quality_issues.append(f"Currency label {self.currency} on an Egyptian listing: price not trusted")
         self.quality_issues = list(dict.fromkeys(self.quality_issues))
         return self
 

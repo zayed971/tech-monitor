@@ -21,6 +21,7 @@ Done = a database of sourced, timed prices with payments and landed cost per ite
 |---|---|
 | Status, counts, which sites work or are walled | STATE.yaml |
 | What to do next, open problems | QUEUE.md |
+| Everything the monitor cannot see, sees wrong, or does not know (with evidence) | GAPS.md |
 | Why we chose X | DECISIONS.md |
 | How to run X, how to ask "top findings", how to restart the collector | RUNBOOK.md |
 | The merge design | PLAN.md |

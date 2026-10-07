@@ -96,3 +96,18 @@ def test_rate_limit_429_slows_the_host_and_retries_before_pausing(monkeypatch, t
     codes = iter([429, 429, 429])
     assert client._request('https://slow.example/again').status_code == 429
     assert 'slow.example' in client.blocked
+
+
+def test_multi_capacity_storage_title_without_variant_is_flagged():
+    l = make('Crucial P3 NVMe M.2 2280 SSD (500 GB / 1 TB / 2 TB)', 4200, 'elyamama')
+    assert l.category == 'ssd' and findings.not_a_real_offer(l)
+    ok = make('Crucial P3 NVMe M.2 2280 SSD 2TB', 10000, 'elyamama')
+    assert not findings.not_a_real_offer(ok)
+    chosen = make('Crucial P3 NVMe M.2 2280 SSD (500 GB / 1 TB / 2 TB)', 10000, 'elyamama', variant_title='2TB')
+    assert not findings.not_a_real_offer(chosen)
+
+
+def test_mislabeled_currency_on_an_egyptian_listing_is_not_trusted():
+    l = make('Lenovo LOQ 15IRX10 laptop RTX 5060', 130800, 'pricena', currency='AED')
+    assert findings.not_a_real_offer(l) and findings.usable(l) is False
+    assert not findings.not_a_real_offer(make('Lenovo LOQ 15IRX10 laptop RTX 5060', 60000, 'compumarts'))

@@ -73,7 +73,7 @@ def row(listing):
 
 def not_a_real_offer(listing):
     """Price makes no sense for the item, or the ad is a buyer's 'wanted' post."""
-    return any('implausible' in q or 'Wanted ad' in q for q in listing.quality_issues)
+    return any('implausible' in q or 'Wanted ad' in q or 'unknown size' in q or 'Currency label' in q for q in listing.quality_issues)
 
 
 def usable(listing, max_age_hours=None):

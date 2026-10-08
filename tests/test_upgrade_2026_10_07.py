@@ -111,3 +111,10 @@ def test_mislabeled_currency_on_an_egyptian_listing_is_not_trusted():
     l = make('Lenovo LOQ 15IRX10 laptop RTX 5060', 130800, 'pricena', currency='AED')
     assert findings.not_a_real_offer(l) and findings.usable(l) is False
     assert not findings.not_a_real_offer(make('Lenovo LOQ 15IRX10 laptop RTX 5060', 60000, 'compumarts'))
+
+
+def test_spec_words_do_not_make_models_and_variants_split():
+    from egypt_deals.findings import model_tokens
+    assert model_tokens('Rapoo M50 Plus 3200 DPI Silent Black 2.4GHz Wireless Mouse') is None
+    assert model_tokens('Logitech G502 Hero Gaming Mouse') != model_tokens('Logitech G502 X Plus Lightspeed')
+    assert model_tokens('WD SN850X 1TB') != model_tokens('WD SN850X 2TB')

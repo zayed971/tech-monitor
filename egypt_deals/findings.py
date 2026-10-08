@@ -140,18 +140,30 @@ def pick(listings, kind, budget, zones=None, conditions=None, limit=15, max_age_
     return sorted(best.values(), key=order)[:limit]
 
 
+# Spec words that carry digits and letters but name no product ("2.4ghz" gives "4ghz", "3200dpi", "ddr5", "1080p"). Without this,
+# every wireless mouse shared one "model" and got compared with all the others.
+SPEC_TOKEN = re.compile(r'^(?:\d+(?:ghz|mhz|hz|dpi|mah|mm|cm|mbps|gbps|rpm|ms|mp|nm|db|kg|lm|gb|tb|w|v|a|k|p|m|g|s|x|in|pin|core|bit|fps|cfm|cl)'
+                        r'|ddr[2-5]|usb\d*|type\w?|wifi\d?|bt\d*|pcie\d*|gen\d+|sata\d*|hdmi\d*|rgb\d*|argb\d*|\d+(?:st|nd|rd|th)|2in1|3in1|4in1|5in1)$')
+
+
+# Words that separate versions of one model code (G502 Hero vs G502 X vs G502 Lightspeed; 4070 vs 4070 Ti Super).
+VARIANT_WORDS = {'hero', 'lightspeed', 'plus', 'pro', 'ti', 'super', 'xt', 'xtx', 'max', 'mini', 'lite', 'ultra', 'se'}
+
+
 def model_tokens(title):
     """Identity of a product from its title: model codes (letters+digits, 4+ chars) plus capacity, pack size and screen size.
 
     "WD SN850X 1TB" and "WD SN850X 2TB" are different products, as are a 1-pack and a 3-pack of the same fan. None when the title has no
     model code, so unlike products are never matched by accident."""
     t = str(title).lower()
-    codes = {x for x in re.findall(r'[a-z0-9]{4,}', t) if re.search(r'\d', x) and re.search(r'[a-z]', x)}
+    codes = {x for x in re.findall(r'[a-z0-9]{4,}', t) if re.search(r'\d', x) and re.search(r'[a-z]', x) and not SPEC_TOKEN.match(x)}
     if not codes: return None
     caps = {re.sub(r'\s', '', m) for m in re.findall(r'\b\d+(?:\.?\d+)?\s?(?:gb|tb)\b', t)}
     packs = {'pack' + m for m in re.findall(r'\b(\d)\s*(?:in\s?1|-?pack|pcs|pc|pieces)\b', t)}
     sizes = {'in' + m for m in re.findall(r'\b(\d{2}(?:\.?\d)?)\s?(?:inch|in\b|")', t)}
-    return tuple(sorted(codes | caps | packs | sizes))
+    variants = {'v_' + w for w in re.findall(r'[a-z]+', t) if w in VARIANT_WORDS}
+    variants |= {'v_x' for _ in re.findall(r'[a-z]{1,2}' + chr(92) + 'd{2,4}' + chr(92) + 's+x' + chr(92) + 'b', t)}
+    return tuple(sorted(codes | caps | packs | sizes | variants))
 
 
 def model_key(r):

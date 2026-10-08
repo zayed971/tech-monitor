@@ -3,7 +3,7 @@ Updated: 2026-10-07 02:15 +0300 by HELM (Claude, close-up)
 
 ## What this is (3 lines)
 Zayed's one tech price monitor: Egypt, UAE, Saudi and the US; new and used; shops, marketplaces and (via the burner Chrome) Facebook Marketplace. It only collects; Zayed asks "top findings" and gets a ranked list.
-Goal machine: Blender + local AI box (laptop or PC parts). Device budget 70,000 EGP; the extra monitor (screen) is excluded because someone traveling brings it.
+Zayed already bought his PC and will not change GPU or CPU, and will not buy a laptop (D-013, 2026-10-09). Focus: RAM, SSD, monitors, peripherals, network, power, accessories, gadgets, used finds. The collector still collects everything.
 Done = a database of sourced, timed prices with payments and landed cost per item, and one command that prints top findings.
 
 ## Where we are (5 lines max)

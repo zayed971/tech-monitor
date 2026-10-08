@@ -52,3 +52,8 @@
 - Stage 3 (internet): every pick that matters is checked against live shop pages with a source and a date before it is called a find. Hermes' "look" is not a verdict.
 - Known weakness: the peer-gap rule is unreliable for motherboards and coolers (one chipset or socket name spans many different boards); those rows were not trusted.
 - Fix made on the way: stray backspace characters (from `\b` typed inside normal Python strings) had slipped into the regexes of findings.py and model.py (the wanted-ad rule shipped in D-011 was affected); replaced with real word boundaries, tests green.
+
+## D-013 Focus moves to everything except the PC core and laptops  [ACTIVE]
+- Date: 2026-10-09 02:32 +0300. Decided by: Zayed, verbatim: "ok i alreayd bought a pc not and i wont change big stuff like gpu or cpui in it . so focus on other techs form now on . and i wopnt buy a lptop ."
+- Meaning: he already owns a PC and will not change the GPU or CPU; no laptop. Reports and finds now cover RAM, SSD (internal and external), monitors, peripherals, networking, power, accessories, gadgets and used finds. GPU, CPU, motherboard, PC and laptop rows are not shown unless he asks.
+- Not changed: the collector keeps collecting everything (cheap, and he may ask later). The 70,000 EGP whole-machine budget and the "goal machine" idea in START_HERE are superseded; no new budget was given.

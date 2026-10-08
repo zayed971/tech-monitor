@@ -17,11 +17,11 @@ def main():
     p.add_argument('--zone', action='append', choices=['EG', 'UAE', 'KSA', 'US'])
     p.add_argument('--condition', action='append', choices=['new', 'used', 'refurbished', 'open_box'])
     p.add_argument('--limit', type=int, default=10)
-    p.add_argument('--max-age-hours', type=float, default=None)
+    p.add_argument('--max-age-hours', type=float, default=72, help='drop rows last seen longer ago than this (default 72; 0 = no limit)')
     p.add_argument('--out', help='also write the markdown here')
     a = p.parse_args()
     text, _ = findings.report(root, a.budget, tuple(a.kind or ('laptop', 'gpu', 'pc', 'ram', 'ssd')), a.zone,
-                              a.condition, a.limit, a.max_age_hours)
+                              a.condition, a.limit, a.max_age_hours or None)
     sys.stdout.reconfigure(encoding='utf-8')
     print(text)
     if a.out:

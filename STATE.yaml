@@ -31,3 +31,4 @@ git:
 backups_not_deleted: ["C:\Users\HP\Desktop\EgyptDeals", "C:\Users\HP\Desktop\EgyptDeals-Transfer", "C:\Users\HP\Downloads\Telegram Desktop (49 .part files, 560 items in the folder)"]
 deal_hunt: "2026-10-07 16:05: scripts/deal_scan.py (no money) flagged 518 of 15,504 fresh rows in scope; Hermes (scripts/hermes_review.py, 13 batches of 40, 2 passes, about US$0.02) judged all 518; 60 picks, internet-checked 8 (Exa search, 2026-10-07). Result: no goldmine in SSD, gadgets or accessories; Egyptian prices are tight across shops, many 'was' prices are fake anchors. Files: data/deal_scan/ (git-ignored)."
 collector_check: "2026-10-07 16:08 +03: egypt-shops pass 15:03-15:29 ended exit=0 on the D-011 code (66,513 listings); burner-gulf-shops ended 14:43 exit=0."
+github: "https://github.com/zayed971/tech-monitor (public since 2026-10-09; history scrubbed of a client name and the personal email; push only with Zayed's yes)"
